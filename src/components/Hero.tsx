@@ -20,7 +20,7 @@ export default function Hero() {
               className="w-48 h-48 rounded-full object-cover border-4 shadow-lg"
               style={{
                 borderColor: 'var(--accent-blue)',
-                animation: 'float 6s ease-in-out infinite',
+                animation: 'float 3.5s ease-in-out infinite',
               }}
             />
           </div>
@@ -105,7 +105,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 hero-links" style={{ animation: 'gentlePulse 3s ease-in-out infinite' }}>
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 hero-links" style={{ animation: 'gentlePulse 2s ease-in-out infinite' }}>
         <div
           className="w-px h-16"
           style={{

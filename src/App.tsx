@@ -6,10 +6,12 @@ import Career from './components/Career';
 import Research from './components/Research';
 import Projects from './components/Projects';
 import Footer from './components/Footer';
+import LoadingScreen from './components/LoadingScreen';
 
 function App() {
   return (
     <ThemeProvider>
+      <LoadingScreen />
       <div className="min-h-screen transition-colors duration-300" style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
         <Navigation />
         <Hero />
