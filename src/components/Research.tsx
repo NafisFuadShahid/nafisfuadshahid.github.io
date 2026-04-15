@@ -6,7 +6,7 @@ const papers = [
     title: 'Probabilistic Feature Imputation and Uncertainty-Aware Multimodal Federated Aggregation',
     venue: 'MIDL 2026',
     venueLabel: 'Medical Imaging with Deep Learning',
-    location: 'Full Paper',
+    location: 'Taiwan',
     year: '2026',
     authors: 'Nafis Fuad Shahid, Maroof Ahmed*, Md Akib Haider*, Saidur Rahman Sagor, Aashnan Rahman, Md Azam Hossain',
     abstract: 'PFIN handles missing modalities in federated medical imaging by using probabilistic distributions instead of point estimates. Our uncertainty-aware aggregation method improved AUC by 5.36% on chest X-ray classification when modalities are missing.',
