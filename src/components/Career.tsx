@@ -4,6 +4,7 @@ const experiences = [
   {
     role: 'Associate Software Engineer',
     company: 'Brain Station 23',
+    companyUrl: 'https://brainstation-23.com/',
     period: 'Sep 2025 — Present',
     type: 'Full-time',
     color: '#60a5fa',
@@ -12,10 +13,12 @@ const experiences = [
       'Backend services and API design',
     ],
     skills: ['Backend', 'APIs'],
+    focus: 'Microservices, distributed systems, API architecture',
   },
   {
     role: 'Junior Software Engineer',
     company: 'Inovace Technologies',
+    companyUrl: 'https://inovacetech.com/',
     period: 'Jun 2025 — Aug 2025',
     type: 'Full-time',
     color: '#34d399',
@@ -24,6 +27,7 @@ const experiences = [
       'Developed guard monitoring system for real-time security patrol tracking',
     ],
     skills: ['Biometrics', 'Real-time'],
+    focus: 'Real-time systems, biometric authentication, IoT',
   },
 ];
 
@@ -97,12 +101,15 @@ export default function Career() {
                       {exp.role}
                     </h3>
                     <div className="flex items-center gap-2 mt-1">
-                      <span
-                        className="text-sm font-medium"
+                      <a
+                        href={exp.companyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm font-medium hover:underline"
                         style={{ color: 'var(--accent-blue)' }}
                       >
                         {exp.company}
-                      </span>
+                      </a>
                       <span style={{ color: 'var(--text-tertiary)' }}>·</span>
                       <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
                         {exp.type}
@@ -121,7 +128,7 @@ export default function Career() {
                   </span>
                 </div>
 
-                <ul className="space-y-2.5 mb-4">
+                <ul className="space-y-2.5 mb-3">
                   {exp.bullets.map((b) => (
                     <li
                       key={b}
@@ -136,6 +143,12 @@ export default function Career() {
                     </li>
                   ))}
                 </ul>
+
+                <div className="mb-4">
+                  <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                    Focus: {exp.focus}
+                  </span>
+                </div>
 
                 <div className="flex flex-wrap gap-2">
                   {exp.skills.map((s) => (

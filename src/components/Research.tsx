@@ -31,7 +31,7 @@ const papers = [
     highlight: 'NLBSE @ ICSE 2026',
     highlightColor: '#34d399',
     pdf: `${import.meta.env.BASE_URL}papers/LoRA_MME__Multi_Model_Ensemble_of_LoRA_Tuned_Encoders_for_Code_Comment_Classification.pdf`,
-    github: null,
+    github: 'https://github.com/akibhaider/LoRA-MME-Code-Comment-Classification',
     accentColor: '#34d399',
     borderColor: 'rgba(52,211,153,0.1)',
     bgColor: 'rgba(52,211,153,0.04)',
@@ -79,7 +79,7 @@ export default function Research() {
       <div className="max-w-5xl mx-auto">
         <div
           ref={(el) => { itemRefs.current[0] = el; }}
-          className="reveal mb-12"
+          className="reveal mb-8"
         >
           <h2
             className="text-4xl md:text-5xl font-light tracking-tight mb-4"
@@ -90,6 +90,10 @@ export default function Research() {
           >
             Research
           </h2>
+          <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+            Working on privacy-preserving machine learning and AI for healthcare.
+            Interested in federated learning, medical imaging, and making ML systems more robust and trustworthy.
+          </p>
         </div>
 
         <div className="space-y-8">
