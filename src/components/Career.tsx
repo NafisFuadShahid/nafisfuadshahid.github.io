@@ -13,7 +13,7 @@ const experiences = [
       
     ],
     skills: ['Backend', 'APIs'],
-    focus: 'Microservices, distributed systems, API architecture',
+    focus: 'Spring Boot, Microservices, Distributed Systems, API Design, Agentic RAG, MCP',
   },
   {
     role: 'Junior Software Engineer',
