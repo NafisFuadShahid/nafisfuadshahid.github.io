@@ -21,6 +21,9 @@
   --accent-soft: #7cc4fa;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --cursor-dot: #0c8ce9;
+  --cursor-ring: rgba(12, 140, 233, 0.55);
+  --cursor-glow: rgba(12, 140, 233, 0.35);
 }
 
 [data-theme='dark'] {
@@ -36,6 +39,9 @@
   --accent-soft: #b8deff;
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --cursor-dot: #36a9f4;
+  --cursor-ring: rgba(54, 169, 244, 0.55);
+  --cursor-glow: rgba(54, 169, 244, 0.38);
 }
 
 html {
@@ -81,6 +87,17 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+@keyframes chatSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes drawLine {

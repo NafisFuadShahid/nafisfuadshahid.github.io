@@ -27,10 +27,10 @@ export default function CursorTracker() {
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
     const tick = () => {
-      dotPos.current.x  = lerp(dotPos.current.x,  mouse.current.x, 0.38);
-      dotPos.current.y  = lerp(dotPos.current.y,  mouse.current.y, 0.38);
-      ringPos.current.x = lerp(ringPos.current.x, mouse.current.x, 0.09);
-      ringPos.current.y = lerp(ringPos.current.y, mouse.current.y, 0.09);
+      dotPos.current.x  = lerp(dotPos.current.x,  mouse.current.x, 0.42);
+      dotPos.current.y  = lerp(dotPos.current.y,  mouse.current.y, 0.42);
+      ringPos.current.x = lerp(ringPos.current.x, mouse.current.x, 0.10);
+      ringPos.current.y = lerp(ringPos.current.y, mouse.current.y, 0.10);
 
       if (dotRef.current) {
         dotRef.current.style.transform =
@@ -55,28 +55,29 @@ export default function CursorTracker() {
 
   return (
     <>
-      {/* Fast dot */}
       <div
         ref={dotRef}
         className="fixed top-0 left-0 pointer-events-none z-[9999]"
         style={{
-          width: 6, height: 6,
+          width: 8,
+          height: 8,
           borderRadius: '50%',
-          background: 'var(--accent-blue)',
+          background: 'var(--cursor-dot)',
           willChange: 'transform',
-          mixBlendMode: 'screen',
+          boxShadow: '0 0 8px 2px var(--cursor-glow)',
         }}
       />
 
-      {/* Lagged ring */}
       <div
         ref={ringRef}
         className="fixed top-0 left-0 pointer-events-none z-[9998]"
         style={{
-          width: 38, height: 38,
+          width: 36,
+          height: 36,
           borderRadius: '50%',
-          border: '1.5px solid rgba(54,169,244,0.38)',
+          border: '1.5px solid var(--cursor-ring)',
           willChange: 'transform',
+          backdropFilter: 'none',
         }}
       />
     </>
