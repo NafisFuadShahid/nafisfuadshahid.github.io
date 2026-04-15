@@ -4,7 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 interface Message { text: string; from: 'bot' | 'user'; }
 
 const REPLIES = [
-  'nafis is a lazy failure',
+  'the lazy failure havent wrote the api yet',
 ];
 
 export default function OwlChat() {

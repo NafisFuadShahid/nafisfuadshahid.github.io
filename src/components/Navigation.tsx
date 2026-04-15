@@ -51,13 +51,17 @@ export default function Navigation() {
       <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
         <a
           href="/"
-          className="text-sm font-semibold transition-colors duration-200"
-          style={{
-            letterSpacing: '0.04em',
-            color: 'var(--text-secondary)',
-          }}
+          className="transition-opacity duration-200 hover:opacity-80"
         >
-          NFS
+          <img
+                    src={`${import.meta.env.BASE_URL}image/icon.png`}
+                     alt="Nafis Fuad Shahid"
+                     style={{
+                       width: '74px',
+                       height: '74px',
+                       borderRadius: '6px',
+                     }}
+                   />
         </a>
         <div className="flex items-center gap-6">
           {links.map((link) => (
