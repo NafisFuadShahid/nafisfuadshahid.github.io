@@ -7,13 +7,26 @@ import Research from './components/Research';
 import Projects from './components/Projects';
 import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
+import CursorTracker from './components/CursorTracker';
+import BackgroundEffect from './components/BackgroundEffect';
 import ChatbotIcon from './components/ChatbotIcon';
 
 function App() {
   return (
     <ThemeProvider>
       <LoadingScreen />
-      <div className="min-h-screen transition-colors duration-300" style={{ background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
+      <BackgroundEffect />
+      <CursorTracker />
+      <ChatbotIcon />
+      <div
+        className="min-h-screen transition-colors duration-300"
+        style={{
+          background: 'var(--bg-primary)',
+          color: 'var(--text-primary)',
+          position: 'relative',
+          zIndex: 2,
+        }}
+      >
         <Navigation />
         <Hero />
         <Career />
@@ -21,7 +34,6 @@ function App() {
         <Competitions />
         <Projects />
         <Footer />
-        <ChatbotIcon />
       </div>
     </ThemeProvider>
   );

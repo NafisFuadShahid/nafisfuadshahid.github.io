@@ -1,0 +1,118 @@
+<h2 class="sr-only">An animated owl character whose eyes track your cursor using spring physics</h2>
+<div style="display:flex;flex-direction:column;align-items:center;padding:20px 0 12px">
+<canvas id="owl" style="border-radius:22px;background:#060608;display:block;max-width:100%"></canvas>
+<p style="margin:10px 0 0;font-size:12px;color:var(--color-text-tertiary);letter-spacing:.07em">it's watching you</p>
+</div>
+<script>
+const cv=document.getElementById('owl');
+const g=cv.getContext('2d');
+const W=360,H=430;
+const dpr=window.devicePixelRatio||1;
+cv.width=W*dpr;cv.height=H*dpr;
+cv.style.width=W+'px';cv.style.height=H+'px';
+g.scale(dpr,dpr);
+const OX=W/2,OY=H*.455;
+function spr(p,t,v,k=0.08,d=0.72){const f=(t-p)*k-v*d;return{p:p+v+f,v:v+f};}
+const S={mx:OX,my:OY-120,hr:0,hrv:0,ht:0,htv:0,elx:0,ely:0,elvx:0,elvy:0,erx:0,ery:0,ervx:0,ervy:0,dil:.3,dilv:0,blid:0,bact:false,bph:0,bti:3.2,br:0,id:0};
+document.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();const sx=W/r.width,sy=H/r.height;S.mx=(e.clientX-r.left)*sx;S.my=(e.clientY-r.top)*sy;},{passive:true});
+
+function drawEye(x,y,pu,lid){
+  const og=g.createRadialGradient(x,y,2,x,y,54);
+  og.addColorStop(0,'rgba(54,169,244,.18)');og.addColorStop(.55,'rgba(54,169,244,.05)');og.addColorStop(1,'transparent');
+  g.fillStyle=og;g.beginPath();g.arc(x,y,54,0,Math.PI*2);g.fill();
+  g.beginPath();g.arc(x,y,31,0,Math.PI*2);g.fillStyle='#1b1209';g.fill();
+  g.beginPath();g.arc(x,y,25,0,Math.PI*2);g.fillStyle='#020810';g.fill();
+  const ir=g.createRadialGradient(x+pu.x*.2,y+pu.y*.2,.5,x,y,20);
+  ir.addColorStop(0,'#92e4ff');ir.addColorStop(.2,'#3db8f8');ir.addColorStop(.5,'#1168ba');ir.addColorStop(.82,'#082f62');ir.addColorStop(1,'#031320');
+  g.beginPath();g.arc(x,y,20,0,Math.PI*2);g.fillStyle=ir;g.fill();
+  g.beginPath();g.arc(x,y,14,0,Math.PI*2);g.strokeStyle='rgba(54,169,244,.22)';g.lineWidth=.8;g.stroke();
+  const pr=7+S.dil*5;
+  const px=x+pu.x,py=y+pu.y;
+  const pg=g.createRadialGradient(px-1.5,py-1.5,0,px,py,pr);
+  pg.addColorStop(0,'#14142c');pg.addColorStop(1,'#000008');
+  g.beginPath();g.arc(px,py,pr,0,Math.PI*2);g.fillStyle=pg;g.fill();
+  g.beginPath();g.arc(px-pr*.38,py-pr*.38,pr*.3,0,Math.PI*2);g.fillStyle='rgba(255,255,255,.92)';g.fill();
+  g.beginPath();g.arc(px+pr*.26,py+pr*.3,pr*.14,0,Math.PI*2);g.fillStyle='rgba(255,255,255,.28)';g.fill();
+  g.beginPath();g.arc(px+pr*.18,py-pr*.52,pr*.17,0,Math.PI*2);g.fillStyle='rgba(110,200,255,.22)';g.fill();
+  g.beginPath();g.arc(x,y,20,0,Math.PI*2);g.strokeStyle='rgba(54,169,244,.32)';g.lineWidth=1.5;g.stroke();
+  if(lid>.01){
+    g.save();g.beginPath();g.arc(x,y,25.5,0,Math.PI*2);g.clip();
+    const lh=51*lid;g.fillStyle='#1b1209';g.fillRect(x-27,y+25-lh,54,lh+1);g.restore();
+  }
+}
+
+function draw(t){
+  g.clearRect(0,0,W,H);
+  const ht=S.ht,hto=ht*-10,bs=Math.sin(S.br),isn=Math.sin(S.id*.65)*.006;
+  g.save();
+  g.translate(OX,OY+bs*1.8);
+  g.rotate(S.hr*.17+isn);
+  g.scale(1+bs*.007,1+bs*.004);
+  const au=g.createRadialGradient(hto,0,8,hto,10,130);
+  au.addColorStop(0,'rgba(38,78,155,.08)');au.addColorStop(1,'transparent');
+  g.fillStyle=au;g.beginPath();g.arc(hto,10,130,0,Math.PI*2);g.fill();
+  for(let s=-1;s<=1;s+=2){
+    g.save();g.translate(hto*.4+s*14,63);g.rotate(s*.24+ht*s*.07);
+    g.beginPath();g.ellipse(s*25,18,48,24,s*.3,0,Math.PI*2);g.fillStyle='#100e08';g.fill();
+    g.beginPath();g.ellipse(s*25,13,42,14,s*.3,0,Math.PI*2);g.strokeStyle='rgba(50,38,18,.2)';g.lineWidth=1.5;g.stroke();
+    g.restore();
+  }
+  g.beginPath();g.ellipse(hto*.28,64,46,38,0,0,Math.PI*2);
+  const cg=g.createRadialGradient(hto*.28,54,4,hto*.28,64,50);
+  cg.addColorStop(0,'#342718');cg.addColorStop(.5,'#201810');cg.addColorStop(1,'#0d0c07');
+  g.fillStyle=cg;g.fill();
+  for(let i=0;i<4;i++){g.beginPath();g.ellipse(hto*.2,36+i*13,22-i*3,4,0,0,Math.PI*2);g.strokeStyle=`rgba(74,54,26,${.2-i*.04})`;g.lineWidth=.6;g.stroke();}
+  for(let s=-1;s<=1;s+=2){
+    const w=Math.sin(t*.85+s*.8)*.025;
+    g.save();g.translate(s*40+hto*.65,-68);g.rotate(s*.22+ht*.09*s+w);
+    g.beginPath();g.moveTo(0,0);g.bezierCurveTo(s*-6,-15,s*-11,-28,s*-4,-43);g.bezierCurveTo(s*-1,-37,s*5,-22,s*8,-12);g.bezierCurveTo(s*5,-6,s*2,-2,0,0);
+    g.fillStyle='#1d140c';g.fill();g.strokeStyle='rgba(60,44,20,.28)';g.lineWidth=.8;g.stroke();g.restore();
+  }
+  g.beginPath();g.ellipse(hto,2,83,76,0,0,Math.PI*2);
+  const do_=g.createRadialGradient(hto,-3,26,hto,2,90);
+  do_.addColorStop(0,'#372d1c');do_.addColorStop(.55,'#251d0f');do_.addColorStop(1,'#0e0c07');
+  g.fillStyle=do_;g.fill();
+  g.beginPath();g.ellipse(hto,2,83,76,0,0,Math.PI*2);g.strokeStyle='rgba(95,70,33,.14)';g.lineWidth=3;g.stroke();
+  g.beginPath();g.ellipse(hto,6,63,57,0,0,Math.PI*2);
+  const di=g.createRadialGradient(hto,0,0,hto,6,66);
+  di.addColorStop(0,'#403220');di.addColorStop(.4,'#2f2415');di.addColorStop(1,'#1a1308');
+  g.fillStyle=di;g.fill();
+  for(let i=1;i<=3;i++){g.beginPath();g.ellipse(hto,8,17+i*12,15+i*10,0,0,Math.PI*2);g.strokeStyle=`rgba(86,63,33,${.13-i*.03})`;g.lineWidth=.65;g.stroke();}
+  const cl=v=>Math.max(-9,Math.min(9,v));
+  drawEye(-42+hto,-5,{x:cl(S.elx),y:cl(S.ely)},S.blid);
+  drawEye(42+hto,-5,{x:cl(S.erx),y:cl(S.ery)},S.blid);
+  const bx=hto;
+  g.beginPath();g.moveTo(bx-7,26);g.bezierCurveTo(bx-5,30,bx,39,bx+2,36);g.bezierCurveTo(bx+7,30,bx+7,25,bx+4,24);g.bezierCurveTo(bx+1,22,bx-3,22,bx-7,26);
+  const bg=g.createLinearGradient(bx-7,24,bx+5,39);bg.addColorStop(0,'#6e5023');bg.addColorStop(.5,'#523a17');bg.addColorStop(1,'#32200c');
+  g.fillStyle=bg;g.fill();
+  g.beginPath();g.moveTo(bx-3,27);g.bezierCurveTo(bx-1,31,bx+1,34,bx+1,32);g.strokeStyle='rgba(148,108,50,.4)';g.lineWidth=1;g.stroke();
+  g.restore();
+}
+
+function tick(){
+  const nmx=(S.mx-OX)/W*2,nmy=(S.my-OY)/H*2;
+  let r=spr(S.hr,nmy*.32,S.hrv,.054,.73);S.hr=r.p;S.hrv=r.v;
+  let tr=spr(S.ht,nmx*.45,S.htv,.043,.74);S.ht=tr.p;S.htv=tr.v;
+  const hto=S.ht*-10;
+  const wlx=OX-42+hto,wly=OY-5,wrx=OX+42+hto,wry=OY-5;
+  const dlx=S.mx-wlx,dly=S.my-wly,drx=S.mx-wrx,dry=S.my-wry;
+  const ml=Math.hypot(dlx,dly)||1,mr=Math.hypot(drx,dry)||1;
+  const mx2=9,kd=20;
+  const tlx=dlx/ml*Math.min(ml/kd,mx2),tly=dly/ml*Math.min(ml/kd,mx2);
+  const trx=drx/mr*Math.min(mr/kd,mx2),try2=dry/mr*Math.min(mr/kd,mx2);
+  const ek=.14,ed=.64;
+  let a=spr(S.elx,tlx,S.elvx,ek,ed);S.elx=a.p;S.elvx=a.v;
+  let b=spr(S.ely,tly,S.elvy,ek,ed);S.ely=b.p;S.elvy=b.v;
+  let c=spr(S.erx,trx,S.ervx,ek,ed);S.erx=c.p;S.ervx=c.v;
+  let d=spr(S.ery,try2,S.ervy,ek,ed);S.ery=d.p;S.ervy=d.v;
+  const dist=Math.hypot(nmx,nmy);
+  const dt=Math.max(0,Math.min(1,1.1-dist*1.4));
+  let dl=spr(S.dil,dt,S.dilv,.03,.78);S.dil=dl.p;S.dilv=dl.v;
+  S.br+=.016;S.id+=.011;
+  S.bti-=1/60;
+  if(S.bti<=0&&!S.bact){S.bact=true;S.bph=0;S.bti=2.8+Math.random()*5;}
+  if(S.bact){S.bph+=.13;S.blid=Math.max(0,Math.sin(S.bph));if(S.bph>=Math.PI){S.bact=false;S.blid=0;}}
+}
+
+(function loop(ts){tick();draw(ts/1e3);requestAnimationFrame(loop);})(0);
+</script>

@@ -97,12 +97,15 @@ export default function Competitions() {
                     >
                       {comp.title}
                     </h3>
-                    <span
-                      className="text-sm"
-                      style={{ color: 'var(--text-tertiary)' }}
-                    >
-                      {comp.year}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <Icon size={16} style={{ color: 'var(--text-tertiary)' }} aria-hidden="true" />
+                      <span
+                        className="text-sm"
+                        style={{ color: 'var(--text-tertiary)' }}
+                      >
+                        {comp.year}
+                      </span>
+                    </div>
                   </div>
 
                   <div className="mb-4">

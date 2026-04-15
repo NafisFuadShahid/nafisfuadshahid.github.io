@@ -248,3 +248,107 @@ body {
 .link-underline:hover::after {
   width: 100%;
 }
+
+
+/* ─── CSS custom props for theme ─────────────────────────── */
+:root {
+  --aura-color: rgba(54, 169, 244, 0.10);
+}
+[data-theme='light'] {
+  --aura-color: rgba(12, 140, 233, 0.055);
+}
+
+/* ─── Noise grain ─────────────────────────────────────────── */
+@keyframes noiseGrain {
+  0%   { transform: translate(0,   0);   }
+  15%  { transform: translate(-2%, -3%); }
+  30%  { transform: translate(3%,  1%);  }
+  45%  { transform: translate(-1%, 3%);  }
+  60%  { transform: translate(2%,  -2%); }
+  75%  { transform: translate(-3%, 1%);  }
+  90%  { transform: translate(1%,  -1%); }
+  100% { transform: translate(0,   0);   }
+}
+
+.noise-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 192px 192px;
+  opacity: 0.028;
+  mix-blend-mode: overlay;
+  animation: noiseGrain 0.38s steps(1) infinite;
+  will-change: transform;
+}
+[data-theme='light'] .noise-grain { opacity: 0.012; }
+
+/* ─── Flashlight (radial glow follows mouse inside card) ──── */
+.flashlight-card {
+  position: relative;
+  overflow: hidden;
+}
+.flashlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    300px circle at var(--flash-x, -9999px) var(--flash-y, -9999px),
+    rgba(54, 169, 244, 0.075),
+    transparent 42%
+  );
+  opacity: 0;
+  transition: opacity 0.38s ease;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: inherit;
+}
+.flashlight-card:hover::before { opacity: 1; }
+[data-theme='light'] .flashlight-card::before {
+  background: radial-gradient(
+    300px circle at var(--flash-x, -9999px) var(--flash-y, -9999px),
+    rgba(12, 140, 233, 0.055),
+    transparent 42%
+  );
+}
+
+/* ─── 3-D tilt container ─────────────────────────────────── */
+.tilt-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+  /* transition set dynamically in JS for fast-in / slow-out */
+}
+
+/* ─── Button press + glow ────────────────────────────────── */
+.btn-press {
+  transition:
+    transform   0.15s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow  0.22s ease,
+    color       0.2s  ease !important;
+}
+.btn-press:hover {
+  transform:   translateY(-2px) scale(1.04) !important;
+  box-shadow:  0 4px 22px rgba(54, 169, 244, 0.22) !important;
+}
+.btn-press:active {
+  transform:   scale(0.96) !important;
+  box-shadow:  none !important;
+}
+
+/* ─── Link glow on hover ────────────────────────────────── */
+.link-glow {
+  transition: color 0.22s ease, text-shadow 0.22s ease !important;
+}
+.link-glow:hover {
+  color:        var(--accent-blue) !important;
+  text-shadow:  0 0 18px rgba(54, 169, 244, 0.42);
+}
+
+/* ─── Enhanced card ambient glow ────────────────────────── */
+.card-glow {
+  transition:
+    box-shadow    0.35s ease,
+    border-color  0.35s ease,
+    transform     0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.card-glow:hover {
+  box-shadow: 0 0 0 1px rgba(54,169,244,0.12),
+              0 8px 32px rgba(0,0,0,0.14);
+}
