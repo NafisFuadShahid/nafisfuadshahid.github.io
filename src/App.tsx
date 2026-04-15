@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
 import CursorTracker from './components/CursorTracker';
 import BackgroundEffect from './components/BackgroundEffect';
-import ChatbotIcon from './components/ChatbotIcon';
+import OwlChat from './components/OwlChat';
 
 function App() {
   return (
@@ -17,7 +17,6 @@ function App() {
       <LoadingScreen />
       <BackgroundEffect />
       <CursorTracker />
-      <ChatbotIcon />
       <div
         className="min-h-screen transition-colors duration-300"
         style={{
@@ -35,6 +34,7 @@ function App() {
         <Projects />
         <Footer />
       </div>
+      <OwlChat />
     </ThemeProvider>
   );
 }

@@ -14,7 +14,7 @@ const papers = [
     title: 'LoRA-MME: Multi-Model Ensemble of LoRA-Tuned Encoders for Code Comment Classification',
     venue: 'NLBSE', location: 'Rio de Janeiro', year: '2026',
     authors: 'Md Akib Haider, Ahsan Bulbul*, Nafis Fuad Shahid*, Aimaan Ahmed, Mohammad Ishrak Abedin',
-    abstract: 'Ensemble approach combining four code-specialized transformers (UniXcoder, CodeBERT, GraphCodeBERT, CodeBERTa) with parameter-efficient LoRA tuning. Got the highest F1 score in the shared task.',
+    abstract: 'Ensemble approach combining four code-specialized transformers (UniXcoder, CodeBERT, GraphCodeBERT, CodeBERTa) with parameter-efficient LoRA tuning. Got the highest F1 score among the selected teams.',
     tags: ['Code Intelligence', 'NLP'],
     pdf: `${import.meta.env.BASE_URL}papers/LoRA_MME__Multi_Model_Ensemble_of_LoRA_Tuned_Encoders_for_Code_Comment_Classification.pdf`,
     github: 'https://github.com/akibhaider/LoRA-MME-Code-Comment-Classification',
