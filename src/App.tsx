@@ -7,6 +7,7 @@ import Research from './components/Research';
 import Projects from './components/Projects';
 import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
+import ChatbotIcon from './components/ChatbotIcon';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Competitions />
         <Projects />
         <Footer />
+        <ChatbotIcon />
       </div>
     </ThemeProvider>
   );
