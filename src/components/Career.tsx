@@ -9,8 +9,8 @@ const experiences = [
     type: 'Full-time',
     color: '#60a5fa',
     bullets: [
-      'Full-stack development on product teams',
-      'Backend services and API design',
+      'Full-stack development on fintech teams',
+      
     ],
     skills: ['Backend', 'APIs'],
     focus: 'Microservices, distributed systems, API architecture',
