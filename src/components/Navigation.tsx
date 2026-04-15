@@ -50,7 +50,7 @@ export default function Navigation() {
     >
       <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
         <a
-          href="#"
+          href="/"
           className="text-sm font-semibold transition-colors duration-200"
           style={{
             letterSpacing: '0.04em',
