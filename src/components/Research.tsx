@@ -4,7 +4,7 @@ import { FileText, ExternalLink } from 'lucide-react';
 const papers = [
   {
     title: 'Probabilistic Feature Imputation and Uncertainty-Aware Multimodal Federated Aggregation',
-    venue: 'MIDL 2026',
+    venue: 'MIDL',
     venueLabel: 'Medical Imaging with Deep Learning',
     location: 'Taiwan',
     year: '2026',
