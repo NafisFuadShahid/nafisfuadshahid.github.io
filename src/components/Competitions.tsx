@@ -12,7 +12,7 @@ const competitions = [
     ],
     tags: ['Java'],
     icon: Trophy,
-    image: '/image/comp1.jpeg',
+    image: `${import.meta.env.BASE_URL}image/comp1.jpeg`,
   },
   {
     title: 'AI Hackathon',
@@ -23,7 +23,7 @@ const competitions = [
     ],
     tags: ['AI/ML'],
     icon: Zap,
-    image: '/image/comp2.jpeg',
+    image: `${import.meta.env.BASE_URL}image/comp2.jpeg`,
   },
 ];
 

@@ -15,7 +15,7 @@ export default function Hero() {
         <div className="flex flex-col md:flex-row items-center md:items-start gap-12 mb-12">
           <div className="hero-sub flex-shrink-0">
             <img
-              src="/image/me.jpeg"
+              src={`${import.meta.env.BASE_URL}image/me.jpeg`}
               alt="Nafis Fuad Shahid"
               className="w-48 h-48 rounded-full object-cover border-4 shadow-lg"
               style={{
