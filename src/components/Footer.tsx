@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, Code2, GraduationCap } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -31,7 +31,7 @@ export default function Footer() {
               <Github size={18} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/nafisfuadshahid/"
               target="_blank"
               rel="noopener noreferrer"
               className="transition-colors duration-300"
@@ -39,6 +39,26 @@ export default function Footer() {
               aria-label="LinkedIn"
             >
               <Linkedin size={18} />
+            </a>
+            <a
+              href="https://scholar.google.com/citations?user=cRwM_j8AAAAJ&hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors duration-300"
+              style={{ color: 'var(--text-tertiary)' }}
+              aria-label="Google Scholar"
+            >
+              <GraduationCap size={18} />
+            </a>
+            <a
+              href="https://codeforces.com/profile/NafiShahid"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors duration-300"
+              style={{ color: 'var(--text-tertiary)' }}
+              aria-label="Codeforces"
+            >
+              <Code2 size={18} />
             </a>
           </div>
         </div>

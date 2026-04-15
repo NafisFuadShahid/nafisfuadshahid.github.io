@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail, ArrowDown } from 'lucide-react';
+import { Github, Linkedin, Mail, ArrowDown, Code2, GraduationCap } from 'lucide-react';
 
 export default function Hero() {
   return (
@@ -37,21 +37,28 @@ export default function Hero() {
             </h1>
 
             <p
-              className="hero-desc text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-8"
+              className="hero-desc text-lg md:text-xl font-light max-w-2xl leading-relaxed mb-6"
               style={{ color: 'var(--text-secondary)' }}
             >
-              Software engineer and researcher. Final year CSE student at IUT.
-              Currently working on federated learning, medical imaging, and code intelligence.
+              Software Engineer at Brain Station 23 | CSE '26 at IUT
             </p>
 
-            <div className="hero-links flex flex-wrap items-center justify-center md:justify-start gap-6">
+            <p
+              className="hero-desc text-base font-light max-w-2xl leading-relaxed mb-8"
+              style={{ color: 'var(--text-tertiary)' }}
+            >
+              Building systems and doing research on federated learning and AI.
+              Published at MIDL, ICSE, and other venues.
+            </p>
+
+            <div className="hero-links flex flex-wrap items-center justify-center md:justify-start gap-5">
               <a
                 href="mailto:nafisfuad21@iut-dhaka.edu"
                 className="link-underline text-sm transition-colors duration-300"
                 style={{ color: 'var(--text-secondary)' }}
               >
                 <Mail size={14} />
-                nafisfuad21@iut-dhaka.edu
+                Email
               </a>
               <a
                 href="https://github.com/NafisFuadShahid"
@@ -64,7 +71,7 @@ export default function Hero() {
                 GitHub
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/nafisfuadshahid/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-underline text-sm transition-colors duration-300"
@@ -72,6 +79,26 @@ export default function Hero() {
               >
                 <Linkedin size={14} />
                 LinkedIn
+              </a>
+              <a
+                href="https://scholar.google.com/citations?user=cRwM_j8AAAAJ&hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline text-sm transition-colors duration-300"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                <GraduationCap size={14} />
+                Scholar
+              </a>
+              <a
+                href="https://codeforces.com/profile/NafiShahid"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline text-sm transition-colors duration-300"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                <Code2 size={14} />
+                Codeforces
               </a>
             </div>
           </div>
