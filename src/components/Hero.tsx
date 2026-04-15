@@ -47,8 +47,8 @@ export default function Hero() {
               className="hero-desc text-base font-light max-w-2xl leading-relaxed mb-8"
               style={{ color: 'var(--text-tertiary)' }}
             >
-              Building systems and doing research on federated learning and AI.
-              Published at MIDL, ICSE, and other venues.
+              Building systems and doing research on federated learning and Medical Imaging.
+              
             </p>
 
             <div className="hero-links flex flex-wrap items-center justify-center md:justify-start gap-5">
