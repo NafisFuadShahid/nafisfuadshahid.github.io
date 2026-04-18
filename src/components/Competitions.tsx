@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Trophy, Zap } from 'lucide-react';
+import FlipCard from './FlipCard';
 
 const competitions = [
   {
@@ -72,72 +73,97 @@ export default function Competitions() {
         <div className="grid md:grid-cols-2 gap-8">
           {competitions.map((comp, i) => {
             const Icon = comp.icon;
-            return (
-              <div
-                key={comp.title}
-                ref={(el) => { itemRefs.current[i] = el; }}
-                className="reveal card-hover"
-                style={{
-                  transitionDelay: `${i * 0.1}s`,
-                }}
-              >
-                <div className="relative h-56 overflow-hidden rounded-lg mb-4">
+
+            // Front: Image with title overlay
+            const front = (
+              <div className="flex flex-col h-full min-h-[320px]">
+                <div className="relative h-48 -m-6 mb-4 overflow-hidden">
                   <img
                     src={comp.image}
                     alt={comp.title}
                     className="w-full h-full object-cover"
                   />
-                </div>
-
-                <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <h3
-                      className="text-xl font-medium"
-                      style={{ color: 'var(--text-primary)' }}
-                    >
-                      {comp.title}
-                    </h3>
-                    <div className="flex items-center gap-2">
-                      <Icon size={16} style={{ color: 'var(--text-tertiary)' }} aria-hidden="true" />
-                      <span
-                        className="text-sm"
-                        style={{ color: 'var(--text-tertiary)' }}
-                      >
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%)',
+                    }}
+                  />
+                  <div className="absolute bottom-4 left-6 right-6">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Icon size={18} style={{ color: 'white' }} aria-hidden="true" />
+                      <span className="text-sm" style={{ color: 'rgba(255,255,255,0.9)' }}>
                         {comp.year}
                       </span>
                     </div>
                   </div>
+                </div>
 
-                  <div className="mb-4">
-                    <span
-                      className="text-sm"
-                      style={{
-                        color: 'var(--text-secondary)',
-                      }}
+                <div className="flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3
+                      className="text-xl font-semibold mb-3"
+                      style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}
                     >
+                      {comp.title}
+                    </h3>
+                    <span className="text-sm" style={{ color: 'var(--accent-primary)' }}>
                       {comp.event}
                     </span>
                   </div>
 
-                  <ul className="space-y-2 mb-4">
-                    {comp.highlights.map((h) => (
-                      <li
-                        key={h}
-                        className="text-sm leading-relaxed"
-                        style={{ color: 'var(--text-secondary)' }}
-                      >
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--accent-primary)' }}>
+                    <span>Click for details</span>
+                    <span style={{ fontSize: '14px' }}>→</span>
+                  </div>
+                </div>
+              </div>
+            );
 
-                  <div className="flex flex-wrap gap-2">
+            // Back: Highlights and tags
+            const back = (
+              <div className="flex flex-col justify-between h-full min-h-[320px]">
+                <div>
+                  <div className="flex items-center gap-2 mb-4">
+                    <Icon size={20} style={{ color: 'var(--accent-primary)' }} aria-hidden="true" />
+                    <h3
+                      className="text-lg font-semibold"
+                      style={{ color: 'var(--text-primary)' }}
+                    >
+                      {comp.title}
+                    </h3>
+                  </div>
+
+                  <div className="mb-5 pb-5 border-b" style={{ borderColor: 'var(--border-color)' }}>
+                    <span className="text-xs font-medium block mb-2" style={{ color: 'var(--text-tertiary)' }}>
+                      Achievements
+                    </span>
+                    <ul className="space-y-2.5">
+                      {comp.highlights.map((h) => (
+                        <li
+                          key={h}
+                          className="flex items-start gap-2.5 text-sm leading-relaxed"
+                          style={{ color: 'var(--text-secondary)' }}
+                        >
+                          <span
+                            className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
+                            style={{ background: 'var(--accent-primary)' }}
+                          />
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2 mb-4">
                     {comp.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="text-xs"
+                        className="badge text-xs"
                         style={{
-                          color: 'var(--text-tertiary)',
+                          background: 'var(--accent-soft)',
+                          color: 'var(--text-primary)',
+                          padding: '4px 12px',
                         }}
                       >
                         {tag}
@@ -145,6 +171,23 @@ export default function Competitions() {
                     ))}
                   </div>
                 </div>
+
+                <div className="text-xs" style={{ color: 'var(--accent-primary)' }}>
+                  Click to flip back
+                </div>
+              </div>
+            );
+
+            return (
+              <div
+                key={comp.title}
+                ref={(el) => { itemRefs.current[i] = el; }}
+                className="reveal"
+                style={{
+                  transitionDelay: `${i * 0.1}s`,
+                }}
+              >
+                <FlipCard front={front} back={back} className="card-glow" />
               </div>
             );
           })}

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import FlipCard from './FlipCard';
 
 const projects = [
   {
@@ -31,7 +32,7 @@ const projects = [
   },
 ];
 
-// ─── Sub-component: handles tilt + flashlight independently ───
+// ─── Sub-component with flip card ───
 function ProjectCard({
   proj,
   index,
@@ -42,66 +43,90 @@ function ProjectCard({
   observeRef: (el: HTMLDivElement | null) => void;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
-  let resetTimeout: ReturnType<typeof setTimeout>;
 
   const setRef = (el: HTMLDivElement | null) => {
     (cardRef as React.MutableRefObject<HTMLDivElement | null>).current = el;
     observeRef(el);
   };
 
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = cardRef.current;
-    if (!el) return;
-    clearTimeout(resetTimeout);
+  // Front: Name, subtitle, period
+  const front = (
+    <div className="flex flex-col justify-between h-full min-h-[200px]">
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <span
+            className="text-xs px-3 py-1"
+            style={{
+              background: 'var(--bg-tertiary)',
+              color: 'var(--text-tertiary)',
+              borderRadius: '12px',
+            }}
+          >
+            {proj.period}
+          </span>
+        </div>
 
-    const rect = el.getBoundingClientRect();
-    const nx   = (e.clientX - rect.left  - rect.width  / 2) / (rect.width  / 2);
-    const ny   = (e.clientY - rect.top   - rect.height / 2) / (rect.height / 2);
-
-    el.style.transition = 'transform 0.07s ease-out, box-shadow 0.35s ease, border-color 0.35s ease';
-    el.style.transform  = `perspective(900px) rotateX(${-ny * 6}deg) rotateY(${nx * 6}deg) scale(1.015)`;
-
-    // flashlight
-    el.style.setProperty('--flash-x', `${e.clientX - rect.left}px`);
-    el.style.setProperty('--flash-y', `${e.clientY - rect.top}px`);
-  };
-
-  const onMouseLeave = () => {
-    const el = cardRef.current;
-    if (!el) return;
-    el.style.transition = 'transform 0.65s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.35s ease, border-color 0.35s ease';
-    el.style.transform  = 'perspective(900px) rotateX(0deg) rotateY(0deg) scale(1)';
-  };
-
-  return (
-    <div
-      ref={setRef}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      className={`reveal reveal-delay-${(index % 3) + 1} tilt-card flashlight-card card-glow pb-4 border-b`}
-      style={{ borderColor: 'var(--border-color)' }}
-    >
-      <div className="flex items-start justify-between mb-2">
-        <h4 className="text-base font-medium" style={{ color: 'var(--text-primary)' }}>
+        <h4
+          className="text-xl font-semibold mb-2"
+          style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}
+        >
           {proj.name}
         </h4>
-        <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-          {proj.period}
-        </span>
+
+        <p className="text-sm mb-4" style={{ color: 'var(--accent-primary)' }}>
+          {proj.subtitle}
+        </p>
       </div>
-      <p className="text-sm mb-1" style={{ color: 'var(--text-tertiary)' }}>
-        {proj.subtitle}
-      </p>
-      <p className="text-sm leading-relaxed mb-3" style={{ color: 'var(--text-secondary)' }}>
-        {proj.desc}
-      </p>
-      <div className="flex flex-wrap gap-2">
-        {proj.stack.map((s) => (
-          <span key={s} className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-            {s}
+
+      <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--accent-primary)' }}>
+        <span>Click for details</span>
+        <span style={{ fontSize: '14px' }}>→</span>
+      </div>
+    </div>
+  );
+
+  // Back: Description and tech stack
+  const back = (
+    <div className="flex flex-col justify-between h-full min-h-[200px]">
+      <div>
+        <p
+          className="text-sm leading-relaxed mb-5 pb-5 border-b"
+          style={{ color: 'var(--text-secondary)', borderColor: 'var(--border-color)' }}
+        >
+          {proj.desc}
+        </p>
+
+        <div>
+          <span className="text-xs font-medium block mb-3" style={{ color: 'var(--text-tertiary)' }}>
+            Tech Stack
           </span>
-        ))}
+          <div className="flex flex-wrap gap-2">
+            {proj.stack.map((s) => (
+              <span
+                key={s}
+                className="badge text-xs"
+                style={{
+                  background: 'var(--accent-soft)',
+                  color: 'var(--text-primary)',
+                  padding: '4px 12px',
+                }}
+              >
+                {s}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
+
+      <div className="text-xs" style={{ color: 'var(--accent-primary)' }}>
+        Click to flip back
+      </div>
+    </div>
+  );
+
+  return (
+    <div ref={setRef} className={`reveal reveal-delay-${(index % 3) + 1}`}>
+      <FlipCard front={front} back={back} className="card-glow" />
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import FlipCard from './FlipCard';
 
 const papers = [
   {
@@ -29,7 +30,7 @@ const papers = [
   },
 ];
 
-// ─── Sub-component with tilt + flashlight ────────────────
+// ─── Sub-component with flip card ────────────────
 function PaperCard({
   paper, index, observeRef,
 }: {
@@ -44,97 +45,119 @@ function PaperCard({
     observeRef(el);
   };
 
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = cardRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const nx = (e.clientX - rect.left  - rect.width  / 2) / (rect.width  / 2);
-    const ny = (e.clientY - rect.top   - rect.height / 2) / (rect.height / 2);
-    el.style.transition = 'transform 0.07s ease-out, box-shadow 0.35s ease, border-color 0.35s ease';
-    el.style.transform  = `perspective(1100px) rotateX(${-ny * 4}deg) rotateY(${nx * 4}deg) scale(1.008)`;
-    el.style.setProperty('--flash-x', `${e.clientX - rect.left}px`);
-    el.style.setProperty('--flash-y', `${e.clientY - rect.top}px`);
-  };
+  // Front: Title, venue, year, hint to flip
+  const front = (
+    <div className="flex flex-col justify-between h-full min-h-[280px]">
+      <div>
+        <div className="flex items-center gap-2 mb-4">
+          <span
+            className="badge"
+            style={{
+              background: 'var(--accent-soft)',
+              color: 'var(--text-primary)',
+              fontSize: '10px',
+              padding: '4px 12px',
+            }}
+          >
+            {paper.venue} {paper.year}
+          </span>
+        </div>
 
-  const onMouseLeave = () => {
-    const el = cardRef.current;
-    if (!el) return;
-    el.style.transition = 'transform 0.65s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.35s ease, border-color 0.35s ease';
-    el.style.transform  = 'perspective(1100px) rotateX(0deg) rotateY(0deg) scale(1)';
-  };
-
-  return (
-    <article
-      ref={setRef}
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
-      className={`reveal reveal-delay-${index + 1} tilt-card flashlight-card card-glow p-6 border-l-2`}
-      style={{ borderColor: 'var(--border-color)' }}
-    >
-      <div className="flex items-start justify-between gap-4 mb-3">
         <h3
-          className="text-lg font-medium leading-snug"
+          className="text-xl font-medium leading-snug mb-4"
           style={{ letterSpacing: '-0.01em', color: 'var(--text-primary)' }}
         >
           {paper.title}
         </h3>
-      </div>
 
-      <div className="flex items-center gap-2 mb-3">
-        <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-          {paper.venue} {paper.year}
-        </span>
-        <span style={{ color: 'var(--text-tertiary)' }}>·</span>
-        <span className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-          {paper.location}
-        </span>
-      </div>
-
-      <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>
-        {paper.abstract}
-      </p>
-
-      <div className="flex flex-wrap gap-3 mb-4">
-        {paper.tags.map((tag) => (
-          <span key={tag} className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      {(paper.pdf || paper.github) && (
-        <div className="flex items-center gap-4">
-          {paper.pdf && (
-            <a
-              href={paper.pdf}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-press link-underline text-sm"
+        <div className="flex flex-wrap gap-2 mb-3">
+          {paper.tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-xs px-3 py-1"
               style={{
-                color: 'var(--text-secondary)',
-                display: 'inline-flex', alignItems: 'center', gap: 4,
+                color: 'var(--accent-primary)',
+                background: 'var(--bg-tertiary)',
+                borderRadius: '12px',
               }}
             >
-              Paper
-            </a>
-          )}
-          {paper.github && (
-            <a
-              href={paper.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-press link-underline text-sm"
-              style={{
-                color: 'var(--text-secondary)',
-                display: 'inline-flex', alignItems: 'center', gap: 4,
-              }}
-            >
-              Code
-            </a>
-          )}
+              {tag}
+            </span>
+          ))}
         </div>
-      )}
-    </article>
+      </div>
+
+      <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--accent-primary)' }}>
+        <span>Click to read more</span>
+        <span style={{ fontSize: '14px' }}>→</span>
+      </div>
+    </div>
+  );
+
+  // Back: Abstract, authors, links
+  const back = (
+    <div className="flex flex-col justify-between h-full min-h-[280px]">
+      <div>
+        <p className="text-xs mb-3" style={{ color: 'var(--text-tertiary)', lineHeight: 1.6 }}>
+          {paper.authors}
+        </p>
+
+        <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>
+          {paper.abstract}
+        </p>
+      </div>
+
+      <div className="flex items-center justify-between">
+        {(paper.pdf || paper.github) && (
+          <div className="flex items-center gap-4">
+            {paper.pdf && (
+              <a
+                href={paper.pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-press link-underline text-sm"
+                style={{
+                  color: 'var(--accent-primary)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 4,
+                }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                Paper
+              </a>
+            )}
+            {paper.github && (
+              <a
+                href={paper.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-press link-underline text-sm"
+                style={{
+                  color: 'var(--accent-primary)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 4,
+                }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                Code
+              </a>
+            )}
+          </div>
+        )}
+
+        <div className="text-xs" style={{ color: 'var(--accent-primary)' }}>
+          Click to flip back
+        </div>
+      </div>
+    </div>
+  );
+
+  return (
+    <div ref={setRef} className={`reveal reveal-delay-${index + 1}`}>
+      <FlipCard front={front} back={back} className="card-glow" />
+    </div>
   );
 }
 

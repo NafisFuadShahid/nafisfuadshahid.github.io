@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import FlipCard from './FlipCard';
 
 const experiences = [
   {
@@ -68,106 +69,131 @@ export default function Career() {
           </h2>
         </div>
 
-        <div className="relative mb-20">
-          <div
-            className="absolute left-[7px] top-0 bottom-0 w-px timeline-line"
-            style={{
-              background: `linear-gradient(to bottom, var(--accent-blue), var(--border-color))`,
-            }}
-          />
-
-          <div className="space-y-10">
-            {experiences.map((exp, i) => (
-              <div
-                key={exp.role}
-                ref={(el) => { itemRefs.current[i + 1] = el; }}
-                className={`reveal reveal-delay-${i + 1} relative pl-10`}
-              >
-                <div
-                  className="absolute left-0 top-1.5 w-3.5 h-3.5 rounded-full border-2"
-                  style={{
-                    background: 'var(--accent-blue)',
-                    borderColor: 'var(--bg-primary)',
-                    boxShadow: `0 0 0 4px var(--bg-tertiary)`,
-                  }}
-                />
-
-                <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
-                  <div>
-                    <h3
-                      className="text-lg font-semibold"
-                      style={{ color: 'var(--text-primary)' }}
-                    >
-                      {exp.role}
-                    </h3>
-                    <div className="flex items-center gap-2 mt-1">
-                      <a
-                        href={exp.companyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm font-medium hover:underline"
-                        style={{ color: 'var(--accent-blue)' }}
-                      >
-                        {exp.company}
-                      </a>
-                      <span style={{ color: 'var(--text-tertiary)' }}>·</span>
-                      <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                        {exp.type}
-                      </span>
-                    </div>
-                  </div>
-                  <span
-                    className="badge text-xs"
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {experiences.map((exp, i) => {
+            // Front: Role, company, period
+            const front = (
+              <div className="flex flex-col justify-between h-full min-h-[240px]">
+                <div>
+                  <div
+                    className="w-12 h-12 rounded-lg mb-4 flex items-center justify-center"
                     style={{
-                      background: 'var(--bg-tertiary)',
-                      border: `1px solid var(--border-color)`,
-                      color: 'var(--text-secondary)',
+                      background: `linear-gradient(135deg, ${exp.color}22 0%, ${exp.color}11 100%)`,
+                      border: `1.5px solid ${exp.color}33`,
                     }}
                   >
-                    {exp.period}
-                  </span>
-                </div>
+                    <span style={{ fontSize: '20px', color: exp.color }}>💼</span>
+                  </div>
 
-                <ul className="space-y-2.5 mb-3">
-                  {exp.bullets.map((b) => (
-                    <li
-                      key={b}
-                      className="flex items-start gap-3 text-sm leading-relaxed"
-                      style={{ color: 'var(--text-secondary)' }}
-                    >
-                      <span
-                        className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0"
-                        style={{ background: 'var(--accent-sage)' }}
-                      />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
+                  <h3
+                    className="text-xl font-semibold mb-2"
+                    style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}
+                  >
+                    {exp.role}
+                  </h3>
 
-                <div className="mb-4">
-                  <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                    Focus: {exp.focus}
-                  </span>
-                </div>
+                  <a
+                    href={exp.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm font-medium hover:underline inline-block mb-3"
+                    style={{ color: 'var(--accent-primary)' }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {exp.company}
+                  </a>
 
-                <div className="flex flex-wrap gap-2">
-                  {exp.skills.map((s) => (
+                  <div className="flex flex-wrap gap-2">
                     <span
-                      key={s}
-                      className="badge"
+                      className="badge text-xs"
                       style={{
                         background: 'var(--bg-tertiary)',
-                        border: `1px solid var(--border-color)`,
+                        color: 'var(--text-secondary)',
+                      }}
+                    >
+                      {exp.period}
+                    </span>
+                    <span
+                      className="badge text-xs"
+                      style={{
+                        background: 'var(--bg-tertiary)',
                         color: 'var(--text-tertiary)',
                       }}
                     >
-                      {s}
+                      {exp.type}
                     </span>
-                  ))}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--accent-primary)' }}>
+                  <span>Click for details</span>
+                  <span style={{ fontSize: '14px' }}>→</span>
                 </div>
               </div>
-            ))}
-          </div>
+            );
+
+            // Back: Responsibilities, focus, skills
+            const back = (
+              <div className="flex flex-col justify-between h-full min-h-[240px]">
+                <div>
+                  <ul className="space-y-2.5 mb-4">
+                    {exp.bullets.map((b) => (
+                      <li
+                        key={b}
+                        className="flex items-start gap-2.5 text-sm leading-relaxed"
+                        style={{ color: 'var(--text-secondary)' }}
+                      >
+                        <span
+                          className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
+                          style={{ background: 'var(--accent-primary)' }}
+                        />
+                        {b}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="mb-4 pb-4 border-b" style={{ borderColor: 'var(--border-color)' }}>
+                    <span className="text-xs font-medium block mb-2" style={{ color: 'var(--text-tertiary)' }}>
+                      Focus Areas
+                    </span>
+                    <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+                      {exp.focus}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {exp.skills.map((s) => (
+                      <span
+                        key={s}
+                        className="badge text-xs"
+                        style={{
+                          background: 'var(--accent-soft)',
+                          color: 'var(--text-primary)',
+                          padding: '4px 12px',
+                        }}
+                      >
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="text-xs" style={{ color: 'var(--accent-primary)' }}>
+                  Click to flip back
+                </div>
+              </div>
+            );
+
+            return (
+              <div
+                key={exp.role}
+                ref={(el) => { itemRefs.current[i + 1] = el; }}
+                className={`reveal reveal-delay-${i + 1}`}
+              >
+                <FlipCard front={front} back={back} className="card-glow" />
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

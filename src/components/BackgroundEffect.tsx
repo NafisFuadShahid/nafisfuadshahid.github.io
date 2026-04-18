@@ -39,11 +39,37 @@ export default function BackgroundEffect() {
 
   return (
     <>
+      {/* Ambient gradients for day mode */}
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          zIndex: 0,
+          background: 'var(--ambient-gradient-1)',
+        }}
+      />
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          zIndex: 0,
+          background: 'var(--ambient-gradient-2)',
+        }}
+      />
+      <div
+        className="fixed inset-0 pointer-events-none"
+        style={{
+          zIndex: 0,
+          background: 'var(--ambient-gradient-3)',
+        }}
+      />
+
+      {/* Mouse-following aura */}
       <div
         ref={auraRef}
         className="fixed inset-0 pointer-events-none"
         style={{ zIndex: 0 }}
       />
+
+      {/* Noise grain */}
       <div
         className="noise-grain fixed inset-0 pointer-events-none"
         style={{ zIndex: 1 }}
