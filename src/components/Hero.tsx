@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import { Github, Linkedin, Mail, ArrowDown, Code2, GraduationCap } from 'lucide-react';
+import VisitorGlobe from './VisitorGlobe';
 
 export default function Hero() {
   const photoRef = useRef<HTMLDivElement>(null);
@@ -32,30 +33,33 @@ export default function Hero() {
         }}
       />
 
-      <div className="max-w-5xl mx-auto w-full relative z-10">
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-12 mb-12">
+      <div className="max-w-6xl mx-auto w-full relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr_auto] items-center gap-8 lg:gap-12 mb-12">
 
           {/* ─── Profile photo with 3-D tilt ─── */}
-          <div
-            ref={photoRef}
-            className="hero-sub flex-shrink-0 tilt-card"
-            onMouseMove={onPhotoMove}
-            onMouseLeave={onPhotoLeave}
-            style={{ willChange: 'transform' }}
-          >
-            <img
-              src={`${import.meta.env.BASE_URL}image/me.jpeg`}
-              alt="Nafis Fuad Shahid"
-              className="w-48 h-48 rounded-full object-cover border-4 shadow-lg"
-              style={{
-                borderColor: 'var(--accent-blue)',
-                animation: 'float 3.5s ease-in-out infinite',
-                pointerEvents: 'none',
-              }}
-            />
+          <div className="flex justify-center lg:justify-start">
+            <div
+              ref={photoRef}
+              className="hero-sub flex-shrink-0 tilt-card"
+              onMouseMove={onPhotoMove}
+              onMouseLeave={onPhotoLeave}
+              style={{ willChange: 'transform' }}
+            >
+              <img
+                src={`${import.meta.env.BASE_URL}image/me.jpeg`}
+                alt="Nafis Fuad Shahid"
+                className="w-48 h-48 rounded-full object-cover border-4 shadow-lg"
+                style={{
+                  borderColor: 'var(--accent-blue)',
+                  animation: 'float 3.5s ease-in-out infinite',
+                  pointerEvents: 'none',
+                }}
+              />
+            </div>
           </div>
 
-          <div className="flex-1 text-center md:text-left">
+          {/* ─── Bio and links ─── */}
+          <div className="text-center lg:text-left">
             <h1
               className="hero-name text-5xl md:text-7xl font-light tracking-tight leading-none mb-6"
               style={{ letterSpacing: '-0.02em', color: 'var(--text-primary)' }}
@@ -78,7 +82,7 @@ export default function Hero() {
             </p>
 
             {/* ─── Links with press + glow ─── */}
-            <div className="hero-links flex flex-wrap items-center justify-center md:justify-start gap-5">
+            <div className="hero-links flex flex-wrap items-center justify-center lg:justify-start gap-5">
               {[
                 { href: 'mailto:nafisfuad21@iut-dhaka.edu', icon: <Mail size={14} />,        label: 'Email'      },
                 { href: 'https://github.com/NafisFuadShahid',            icon: <Github size={14} />,      label: 'GitHub'     },
@@ -100,6 +104,11 @@ export default function Hero() {
                 </a>
               ))}
             </div>
+          </div>
+
+          {/* ─── Visitor Globe ─── */}
+          <div className="hero-sub flex justify-center lg:justify-end">
+            <VisitorGlobe />
           </div>
         </div>
       </div>

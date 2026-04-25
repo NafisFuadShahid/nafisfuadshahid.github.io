@@ -107,7 +107,7 @@ function ProjectCard({
                 className="badge text-xs"
                 style={{
                   background: 'var(--accent-soft)',
-                  color: 'var(--text-primary)',
+                  color: 'var(--accent-soft-text)',
                   padding: '4px 12px',
                 }}
               >

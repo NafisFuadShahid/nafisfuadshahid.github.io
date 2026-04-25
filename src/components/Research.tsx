@@ -10,6 +10,7 @@ const papers = [
     tags: ['Federated Learning', 'Medical Imaging'],
     pdf: `${import.meta.env.BASE_URL}papers/midl26_335.pdf`,
     github: 'https://github.com/NafisFuadShahid/PFIN-UQAVG',
+    image: `${import.meta.env.BASE_URL}papers/midl paper thumbnail 2.png`,
   },
   {
     title: 'LoRA-MME: Multi-Model Ensemble of LoRA-Tuned Encoders for Code Comment Classification',
@@ -19,6 +20,7 @@ const papers = [
     tags: ['Code Intelligence', 'NLP'],
     pdf: `${import.meta.env.BASE_URL}papers/LoRA_MME__Multi_Model_Ensemble_of_LoRA_Tuned_Encoders_for_Code_Comment_Classification.pdf`,
     github: 'https://github.com/akibhaider/LoRA-MME-Code-Comment-Classification',
+    image: `${import.meta.env.BASE_URL}papers/nlbse paper thuimbnail.png`,
   },
   {
     title: 'The Stealth of Free Rider Attacks: Assessing the Indistinguishability of Evasive Client Updates in Federated Learning',
@@ -27,6 +29,7 @@ const papers = [
     abstract: 'Showed that free riders in federated learning can stay undetected while maintaining model accuracy within 1% of honest training. The running average strategy exploits weaknesses in standard FedAvg aggregation.',
     tags: ['Federated Learning', 'Security'],
     pdf: null, github: null,
+    image: `${import.meta.env.BASE_URL}papers/cccn paper thumbnail.png`,
   },
 ];
 
@@ -45,58 +48,77 @@ function PaperCard({
     observeRef(el);
   };
 
-  // Front: Title, venue, year, hint to flip
+  // Front: Image, title, venue
   const front = (
-    <div className="flex flex-col justify-between h-full min-h-[280px]">
-      <div>
-        <div className="flex items-center gap-2 mb-4">
+    <div className="flex flex-col h-full min-h-[360px]">
+      <div className="relative -m-6 mb-4 overflow-hidden" style={{ height: '220px' }}>
+        <img
+          src={paper.image}
+          alt={paper.title}
+          className="w-full h-full"
+          style={{
+            objectFit: 'contain',
+            objectPosition: 'center',
+            backgroundColor: 'var(--bg-tertiary)',
+          }}
+        />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: 'linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 40%)',
+          }}
+        />
+        <div className="absolute bottom-4 left-6 right-6">
           <span
-            className="badge"
+            className="badge text-xs mb-2 inline-block"
             style={{
-              background: 'var(--accent-soft)',
-              color: 'var(--text-primary)',
-              fontSize: '10px',
+              background: 'rgba(255,255,255,0.95)',
+              color: '#2a2622',
               padding: '4px 12px',
             }}
           >
             {paper.venue} {paper.year}
           </span>
         </div>
-
-        <h3
-          className="text-xl font-medium leading-snug mb-4"
-          style={{ letterSpacing: '-0.01em', color: 'var(--text-primary)' }}
-        >
-          {paper.title}
-        </h3>
-
-        <div className="flex flex-wrap gap-2 mb-3">
-          {paper.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-xs px-3 py-1"
-              style={{
-                color: 'var(--accent-primary)',
-                background: 'var(--bg-tertiary)',
-                borderRadius: '12px',
-              }}
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
       </div>
 
-      <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--accent-primary)' }}>
-        <span>Click to read more</span>
-        <span style={{ fontSize: '14px' }}>→</span>
+      <div className="flex-1 flex flex-col justify-between">
+        <div>
+          <h3
+            className="text-lg font-medium leading-snug mb-3"
+            style={{ letterSpacing: '-0.01em', color: 'var(--text-primary)' }}
+          >
+            {paper.title}
+          </h3>
+
+          <div className="flex flex-wrap gap-2">
+            {paper.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs px-3 py-1"
+                style={{
+                  color: 'var(--accent-primary)',
+                  background: 'var(--bg-tertiary)',
+                  borderRadius: '12px',
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2 text-xs mt-4" style={{ color: 'var(--accent-primary)' }}>
+          <span>Click to read abstract</span>
+          <span style={{ fontSize: '14px' }}>→</span>
+        </div>
       </div>
     </div>
   );
 
   // Back: Abstract, authors, links
   const back = (
-    <div className="flex flex-col justify-between h-full min-h-[280px]">
+    <div className="flex flex-col justify-between h-full min-h-[360px]">
       <div>
         <p className="text-xs mb-3" style={{ color: 'var(--text-tertiary)', lineHeight: 1.6 }}>
           {paper.authors}

@@ -21,7 +21,8 @@
   /* Calming teal-sage palette with amber hints */
   --accent-primary: #5a9585;
   --accent-secondary: #75ae9e;
-  --accent-soft: #9ec9bd;
+  --accent-soft: #e8f4f1;
+  --accent-soft-text: #5a9585;
   --accent-warm: #c9b089;
 
   --shadow-sm: 0 2px 8px 0 rgba(90, 149, 133, 0.08), 0 1px 4px 0 rgba(201, 176, 137, 0.04);
@@ -52,7 +53,8 @@
   /* Soft teal-sage for dark mode */
   --accent-primary: #6fa899;
   --accent-secondary: #8fc4b5;
-  --accent-soft: #b5ddd1;
+  --accent-soft: rgba(111, 168, 153, 0.2);
+  --accent-soft-text: #6fa899;
   --accent-warm: #c9b089;
 
   --shadow-sm: 0 2px 4px 0 rgba(0, 0, 0, 0.3);
