@@ -42,41 +42,57 @@ function addVisitor(location: VisitorLocation) {
   localStorage.setItem(VISITORS_KEY, JSON.stringify(visitors));
 }
 
-// Check if visitor has already been tracked
+// Check if visitor has already been tracked today
 function hasTrackedToday(): boolean {
   const visitorId = getVisitorId();
   const visitors = getStoredVisitors();
   const today = new Date().setHours(0, 0, 0, 0);
 
-  return visitors.some(v =>
-    v.timestamp >= today &&
-    localStorage.getItem(VISITOR_ID_KEY) === visitorId
-  );
+  // Check if this visitor ID has been tracked today
+  return visitors.some(v => {
+    const visitDate = new Date(v.timestamp).setHours(0, 0, 0, 0);
+    return visitDate === today && localStorage.getItem(VISITOR_ID_KEY) === visitorId;
+  });
 }
 
-// Track current visitor using ipapi.co (free tier: 150 requests/day)
+// Track current visitor using ip-api.com (free tier: 45 requests/minute, no API key needed)
 export async function trackVisitor(): Promise<VisitorLocation | null> {
   // Don't track if already tracked today
   if (hasTrackedToday()) {
+    console.log('Visitor already tracked today');
     return null;
   }
 
   try {
-    const response = await fetch('https://ipapi.co/json/');
-    if (!response.ok) throw new Error('Failed to fetch location');
+    console.log('Fetching visitor location from ip-api.com...');
+    const response = await fetch('http://ip-api.com/json/?fields=status,message,country,countryCode,city,lat,lon');
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('API response not OK:', response.status, errorText);
+      throw new Error(`Failed to fetch location: ${response.status}`);
+    }
 
     const data = await response.json();
+    console.log('Location data received:', data);
+
+    // Check if API returned an error
+    if (data.status === 'fail') {
+      console.error('API returned error:', data.message);
+      throw new Error(data.message);
+    }
 
     const location: VisitorLocation = {
-      country: data.country_name || 'Unknown',
-      countryCode: data.country_code || 'XX',
+      country: data.country || 'Unknown',
+      countryCode: data.countryCode || 'XX',
       city: data.city || 'Unknown',
-      lat: parseFloat(data.latitude) || 0,
-      lon: parseFloat(data.longitude) || 0,
+      lat: data.lat || 0,
+      lon: data.lon || 0,
       timestamp: Date.now(),
     };
 
     addVisitor(location);
+    console.log('Visitor tracked successfully:', location);
     return location;
   } catch (error) {
     console.error('Failed to track visitor:', error);

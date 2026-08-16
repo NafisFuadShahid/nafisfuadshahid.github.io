@@ -1,21 +1,23 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import Globe from 'react-globe.gl';
 import { useTheme } from '../context/ThemeContext';
 import { trackVisitor, getVisitorsByCountry, getUniqueVisitorCount } from '../services/visitorTracking';
 
 interface VisitorDot {
   name: string;
   lat: number;
-  lon: number;
+  lng: number;
   count: number;
+  size: number;
+  color: string;
 }
 
 export default function VisitorGlobe() {
   const [visitors, setVisitors] = useState<VisitorDot[]>([]);
   const [visitorCount, setVisitorCount] = useState(0);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isTracking, setIsTracking] = useState(true);
   const { theme } = useTheme();
-  const [rotation, setRotation] = useState(0);
-  const rafRef = useRef<number>(0);
+  const globeEl = useRef<any>();
 
   // Load visitors and track current visitor
   useEffect(() => {
@@ -23,12 +25,17 @@ export default function VisitorGlobe() {
       const visitorsByCountry = getVisitorsByCountry();
       const visitorDots: VisitorDot[] = [];
 
+      const isDark = theme === 'dark';
+      const dotColor = isDark ? '#c9b089' : '#b89968';
+
       visitorsByCountry.forEach((data, countryCode) => {
         visitorDots.push({
           name: `${data.city}, ${countryCode}`,
           lat: data.lat,
-          lon: data.lon,
+          lng: data.lon,
           count: data.count,
+          size: 0.8,
+          color: dotColor,
         });
       });
 
@@ -36,132 +43,126 @@ export default function VisitorGlobe() {
       setVisitorCount(getUniqueVisitorCount());
     };
 
-    // Load existing visitors
+    // Load existing visitors immediately
     loadVisitors();
 
     // Track current visitor
-    trackVisitor().then(() => {
-      // Reload after tracking
-      loadVisitors();
-    });
+    trackVisitor()
+      .then((result) => {
+        console.log('Visitor tracking result:', result);
+        // Reload after tracking
+        loadVisitors();
+      })
+      .catch((error) => {
+        console.error('Tracking error:', error);
+      })
+      .finally(() => {
+        setIsTracking(false);
+      });
   }, []);
 
+  // Update dot colors and globe appearance when theme changes
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const size = 280;
-    canvas.width = size;
-    canvas.height = size;
-    const centerX = size / 2;
-    const centerY = size / 2;
-    const radius = size * 0.38;
-
     const isDark = theme === 'dark';
-    const globeColor = isDark ? 'rgba(111, 168, 153, 0.08)' : 'rgba(90, 149, 133, 0.08)';
-    const globeBorder = isDark ? 'rgba(111, 168, 153, 0.25)' : 'rgba(90, 149, 133, 0.3)';
     const dotColor = isDark ? '#c9b089' : '#b89968';
-    const gridColor = isDark ? 'rgba(111, 168, 153, 0.12)' : 'rgba(90, 149, 133, 0.15)';
 
-    const draw = () => {
-      ctx.clearRect(0, 0, size, size);
+    setVisitors(prev => prev.map(v => ({ ...v, color: dotColor })));
 
-      // Draw globe background
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-      ctx.fillStyle = globeColor;
-      ctx.fill();
-      ctx.strokeStyle = globeBorder;
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      // Draw latitude lines
-      ctx.strokeStyle = gridColor;
-      ctx.lineWidth = 1;
-      for (let lat = -60; lat <= 60; lat += 30) {
-        const y = centerY - (lat / 90) * radius;
-        const latRadius = Math.cos((lat * Math.PI) / 180) * radius;
-
-        ctx.beginPath();
-        ctx.ellipse(centerX, y, latRadius, latRadius * 0.2, 0, 0, Math.PI * 2);
-        ctx.stroke();
+    // Update globe material color
+    if (globeEl.current) {
+      const globeMaterial = globeEl.current.globeMaterial();
+      if (globeMaterial) {
+        globeMaterial.color.set(isDark ? '#1a1816' : '#f5f3f0');
       }
+    }
+  }, [theme]);
 
-      // Draw longitude lines
-      for (let i = 0; i < 8; i++) {
-        const angle = (i * Math.PI) / 4 + (rotation * Math.PI) / 180;
-        ctx.beginPath();
-        ctx.ellipse(centerX, centerY, radius * Math.abs(Math.cos(angle)), radius, 0, 0, Math.PI * 2);
-        ctx.stroke();
-      }
+  // Auto-rotate globe
+  useEffect(() => {
+    if (globeEl.current) {
+      globeEl.current.controls().autoRotate = true;
+      globeEl.current.controls().autoRotateSpeed = 0.3;
+      globeEl.current.controls().enableZoom = false;
+    }
+  }, []);
 
-      // Draw visitor location dots
-      visitors.forEach((loc) => {
-        const lon = ((loc.lon + rotation) % 360) - 180;
-
-        // Only show dots on the visible hemisphere
-        if (lon < -90 || lon > 90) return;
-
-        const latRad = (loc.lat * Math.PI) / 180;
-        const lonRad = (lon * Math.PI) / 180;
-
-        const x = centerX + radius * Math.cos(latRad) * Math.sin(lonRad);
-        const y = centerY - radius * Math.sin(latRad);
-
-        // Dot size based on distance from edge (perspective)
-        const distance = Math.abs(lonRad) / (Math.PI / 2);
-        const dotSize = 4 * (1 - distance * 0.5);
-        const opacity = 1 - distance * 0.3;
-
-        // Draw glow
-        const gradient = ctx.createRadialGradient(x, y, 0, x, y, dotSize * 3);
-        gradient.addColorStop(0, `${dotColor}${Math.floor(opacity * 0.6 * 255).toString(16).padStart(2, '0')}`);
-        gradient.addColorStop(1, 'transparent');
-        ctx.fillStyle = gradient;
-        ctx.beginPath();
-        ctx.arc(x, y, dotSize * 3, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Draw dot
-        ctx.fillStyle = `${dotColor}${Math.floor(opacity * 255).toString(16).padStart(2, '0')}`;
-        ctx.beginPath();
-        ctx.arc(x, y, dotSize, 0, Math.PI * 2);
-        ctx.fill();
-      });
-
-      // Rotate globe slowly
-      setRotation((prev) => (prev + 0.15) % 360);
-      rafRef.current = requestAnimationFrame(draw);
-    };
-
-    rafRef.current = requestAnimationFrame(draw);
-
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-    };
-  }, [theme, rotation, visitors]);
+  const isDark = theme === 'dark';
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <div className="relative">
-        <canvas
-          ref={canvasRef}
-          className="drop-shadow-lg"
-          style={{
-            filter: 'drop-shadow(0 4px 20px rgba(90, 149, 133, 0.15))',
+      <div className="relative" style={{ width: '100%', maxWidth: '350px', height: '350px' }}>
+        <Globe
+          ref={globeEl}
+          backgroundColor="rgba(0,0,0,0)"
+
+          showGlobe={true}
+          showAtmosphere={true}
+          atmosphereColor={isDark ? '#6fa899' : '#5a9585'}
+          atmosphereAltitude={0.12}
+
+          globeImageUrl={null as any}
+          bumpImageUrl={null as any}
+
+          onGlobeReady={(globe: any) => {
+            const globeMaterial = globe.globeMaterial();
+            globeMaterial.color.set(isDark ? '#1a1816' : '#f5f3f0');
+            globeMaterial.opacity = 0.9;
+            globeMaterial.transparent = true;
           }}
+
+          pointsData={visitors}
+          pointLat="lat"
+          pointLng="lng"
+          pointColor="color"
+          pointAltitude={0.015}
+          pointRadius="size"
+          pointLabel={(d: any) => `
+            <div style="
+              background: ${isDark ? 'rgba(42, 38, 34, 0.95)' : 'rgba(255, 255, 255, 0.95)'};
+              color: ${isDark ? '#e8ecef' : '#2a2622'};
+              padding: 8px 12px;
+              border-radius: 6px;
+              font-size: 12px;
+              font-family: Inter, sans-serif;
+              box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            ">
+              <strong>${d.name}</strong>
+              ${d.count > 1 ? `<br/>${d.count} visitors` : ''}
+            </div>
+          `}
+
+          width={350}
+          height={350}
         />
       </div>
       <div className="text-center">
         <p className="text-sm font-medium mb-1" style={{ color: 'var(--text-primary)' }}>
           Global Visitors
         </p>
-        <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-          {visitorCount > 0 ? `${visitorCount} ${visitorCount === 1 ? 'visitor' : 'visitors'} from ${visitors.length} ${visitors.length === 1 ? 'location' : 'locations'}` : 'Tracking visitors...'}
+        <p className="text-xs mb-2" style={{ color: 'var(--text-tertiary)' }}>
+          {isTracking && visitorCount === 0
+            ? 'Loading...'
+            : visitorCount > 0
+            ? `${visitorCount} ${visitorCount === 1 ? 'visitor' : 'visitors'} from ${visitors.length} ${visitors.length === 1 ? 'country' : 'countries'}`
+            : 'Be the first visitor!'}
         </p>
+        {visitors.length > 0 && (
+          <div className="flex flex-wrap justify-center gap-2 mt-3">
+            {visitors.map((v) => (
+              <span
+                key={v.name}
+                className="text-xs px-3 py-1"
+                style={{
+                  color: 'var(--accent-primary)',
+                  background: 'var(--bg-tertiary)',
+                  borderRadius: '12px',
+                }}
+              >
+                {v.name} {v.count > 1 ? `(${v.count})` : ''}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
