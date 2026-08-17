@@ -29,7 +29,7 @@ COPY Gemfile ./
 # Install bundler and dependencies
 RUN gem install connection_pool:2.5.0
 RUN gem install bundler:2.3.26
-RUN bundle install
+RUN bundle config set --global retry 20 && bundle install --retry=20 --jobs=1
 
 # Command to serve the Jekyll site
 CMD ["jekyll", "serve", "-H", "0.0.0.0", "-w", "--config", "_config.yml,_config_docker.yml"]

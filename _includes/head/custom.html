@@ -2,6 +2,11 @@
 
 <!-- start custom head snippets -->
 
+<!-- Default first-time visitors to the light theme (they can still toggle to dark) -->
+<script>
+  if (!localStorage.getItem("theme")) { localStorage.setItem("theme", "light"); }
+</script>
+
 <!-- Support for Academicons -->
 <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"></noscript>
