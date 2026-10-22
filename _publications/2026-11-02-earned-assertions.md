@@ -1,7 +1,7 @@
 ---
 title: "Self-Corroborating Personalization: Preventing an Assistant's Suggestions from Becoming Evidence About the User"
 collection: publications
-category: conferences
+category: working_papers
 permalink: /publication/2026-earned-assertions
 status: "Work in Progress"
 excerpt: 'LLM assistants with memory can store a user''s passing agreement with their own suggestion as a preference, then count later reactions to it as independent evidence. This work introduces <i>interaction independence</i> to distinguish genuinely user-originated evidence from self-corroborating loops.'
