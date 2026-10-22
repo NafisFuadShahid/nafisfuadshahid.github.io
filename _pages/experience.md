@@ -6,31 +6,44 @@ author_profile: true
 ---
 
 Industry Experience
-======
+------
 
-**Associate Software Engineer**, Brain Station 23 (FinTech Team), Dhaka
-<br/>*Sep 2025 to Present*
-- Designed and built **Brain Assistant**, a pluggable AI customer-support layer that integrates with Chatwoot. It uses hybrid retrieval (vector, keyword, and knowledge-graph search via LightRAG with Postgres/pgvector) over admin-supplied knowledge sources, and falls back to a human agent when the retrieved evidence is not confident enough.
-- Independently designed and built **Docket**, a multi-tenant AI compliance platform for Bangladesh's regulated financial sector. The system combines a Spring Boot backend with a FastAPI AI service, using hybrid RAG and GraphRAG to power obligation tracking, evidence collection, and regulatory reporting with audit-ready workflows.
-- Built and maintained backend microservices for core banking platforms using Spring Boot and PostgreSQL.
+<div style="border:1px solid #e3e3e3;border-left:4px solid #2f7f9f;border-radius:6px;padding:1em 1.25em;margin-bottom:1.25em;">
+  <div style="display:flex;align-items:center;gap:0.75em;margin-bottom:0.6em;">
+    <img src="/images/brain_station.jpeg" alt="Brain Station 23 logo" style="width:46px;height:46px;object-fit:contain;border-radius:6px;flex-shrink:0;" />
+    <span><strong>Associate Software Engineer</strong>, Brain Station 23 (FinTech Team)<br/><span style="color:#777;font-size:0.9em;">Sep 2025 to Present &middot; Dhaka</span></span>
+  </div>
+  <ul style="margin:0;">
+    <li>Built <strong>Brain Assistant</strong>, an AI customer-support layer using hybrid RAG (vector, keyword, and knowledge-graph retrieval) with confidence-aware human fallback.</li>
+    <li>Independently built <strong>Docket</strong>, a multi-tenant AI compliance platform for regulatory reporting (Spring Boot, FastAPI, hybrid RAG/GraphRAG).</li>
+    <li>Built and maintained core-banking backend microservices (Spring Boot, PostgreSQL).</li>
+  </ul>
+</div>
 
-**Junior Software Engineer**, Inovace Technologies, Dhaka
-<br/>*Jun 2025 to Aug 2025*
-- Implemented biometric deduplication to prevent duplicate employee sign-ins using similarity-based matching on biometric feature vectors.
-- Developed a real-time Guard Monitoring System for security patrol attendance and route tracking.
+<div style="border:1px solid #e3e3e3;border-left:4px solid #2f7f9f;border-radius:6px;padding:1em 1.25em;margin-bottom:1.25em;">
+  <div style="display:flex;align-items:center;gap:0.75em;margin-bottom:0.6em;">
+    <img src="/images/inovace_tech.png" alt="Inovace Technologies logo" style="width:46px;height:46px;object-fit:contain;border-radius:6px;flex-shrink:0;" />
+    <span><strong>Junior Software Engineer</strong>, Inovace Technologies<br/><span style="color:#777;font-size:0.9em;">Jun 2025 to Aug 2025 &middot; Dhaka</span></span>
+  </div>
+  <ul style="margin:0;">
+    <li>Built biometric deduplication to prevent duplicate employee sign-ins.</li>
+    <li>Built a real-time Guard Monitoring System for patrol attendance and route tracking.</li>
+  </ul>
+</div>
 
 Education
-======
+------
 
-**B.Sc. in Computer Science and Engineering**, Islamic University of Technology (IUT), Gazipur
-<br/>*Jul 2022 to Sep 2026* &middot; CGPA 3.43 / 4.00 (through 7th semester)
+<div style="border:1px solid #e3e3e3;border-left:4px solid #2f7f9f;border-radius:6px;padding:1em 1.25em;margin-bottom:1.25em;">
+  <div style="display:flex;align-items:center;gap:0.75em;">
+    <img src="/images/iut.png" alt="Islamic University of Technology logo" style="width:46px;height:46px;object-fit:contain;border-radius:6px;flex-shrink:0;" />
+    <span><strong>B.Sc. in Computer Science and Engineering</strong><br/><span style="color:#777;font-size:0.9em;">Islamic University of Technology (IUT), Gazipur</span></span>
+  </div>
+</div>
 
-**Machine Learning Specialization**, DeepLearning.AI / Coursera &middot; *2024*
-
-Technical Skills
-======
-- **Research:** Trustworthy medical AI, uncertainty quantification and calibration, conformal prediction, multimodal medical data, reliable LLM systems, federated learning, code language models
-- **AI/ML Tools:** PyTorch, TensorFlow, Hugging Face, LoRA fine-tuning, LangChain, LangGraph, Model Context Protocol (MCP), nnU-Net, OpenCV
-- **Languages:** Python, Java, C++, TypeScript, JavaScript
-- **Software Engineering:** Spring Boot, FastAPI, Node.js, Microservices, REST APIs, Kafka, Celery, PostgreSQL/pgvector, MySQL, MongoDB, Redis, Vector &amp; Graph Databases
-- **DevOps:** Docker, Kubernetes, K9s, Git
+<div style="border:1px solid #e3e3e3;border-left:4px solid #2f7f9f;border-radius:6px;padding:1em 1.25em;margin-bottom:1.25em;">
+  <div style="display:flex;align-items:center;gap:0.75em;">
+    <img src="/images/notre_dame.png" alt="Notre Dame College logo" style="width:46px;height:46px;object-fit:contain;border-radius:6px;flex-shrink:0;" />
+    <span><strong>Higher Secondary Certificate (HSC)</strong><br/><span style="color:#777;font-size:0.9em;">Notre Dame College, Dhaka</span></span>
+  </div>
+</div>

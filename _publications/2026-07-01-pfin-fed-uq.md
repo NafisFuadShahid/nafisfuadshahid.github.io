@@ -4,6 +4,7 @@ collection: publications
 category: conferences
 permalink: /publication/2026-pfin-fed-uq
 status: "Published in"
+image: '/images/paper_midl.png'
 excerpt: '<b>First author.</b> When many hospitals hold only images and not text reports, a network (P-FIN) imputes the missing modality <i>with calibrated uncertainty</i>, then uses that uncertainty to gate unreliable features locally and to down-weight unreliable clients during federated aggregation. AUC improves by +5.36% in the hardest missing-modality setting.'
 date: 2026-07-01
 venue: 'Medical Imaging with Deep Learning (<a href="https://2026.midl.io/">MIDL 2026</a>), Taipei'

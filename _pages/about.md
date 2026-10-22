@@ -7,18 +7,20 @@ redirect_from:
   - /about.html
 ---
 
-I am a final-year **B.Sc. in Computer Science and Engineering** student at the
-[Islamic University of Technology (IUT)](https://www.iutoic-dhaka.edu/) and an
+I recently completed my **B.Sc. in Computer Science and Engineering** at the
+[Islamic University of Technology (IUT)](https://www.iutoic-dhaka.edu/) and am an
 **Associate Software Engineer** on the FinTech team at
-[Brain Station 23](https://brainstation-23.com/). My research builds
-**trustworthy and reliable machine-learning systems**, with an emphasis on
-**medical AI**. I am especially interested in how models can quantify and
-communicate what they do not know, so that AI stays dependable in high-stakes
-settings such as healthcare.
+[Brain Station 23](https://brainstation-23.com/). My research focuses on
+making machine-learning systems trustworthy in high-stakes settings, particularly
+healthcare. I work on how models can quantify what they do not know, how
+federated systems can stay reliable at every hospital rather than just on
+average, and how the growing memory and personalization layer in LLM assistants
+can remain honest about its evidence.
 
-My research interests are **trustworthy medical AI**; **uncertainty
-quantification and calibration**; **multimodal learning for medical data**; and
-**reliable large language model (LLM) systems**.
+My research interests are **trustworthy AI, calibration, and uncertainty
+quantification**; **privacy-preserving and federated learning**; **robust AI for
+medical imaging**; **human-AI trust in LLM assistants**; and **generative models
+for low-resource medical data**.
 
 <p style="margin-top:1em;">
   <a href="mailto:nafisfuadshahid@gmail.com">Email</a> &middot;
@@ -29,8 +31,8 @@ quantification and calibration**; **multimodal learning for medical data**; and
 </p>
 
 News
-======
-- **Aug 2026.** [*When Calibration Fails the Vulnerable Hospital*](/publication/2026-federated-conformal) was accepted for **oral presentation** at the [DeCaF Workshop](https://workshop-decaf.github.io/decaf-2026/), MICCAI 2026 (Strasbourg).
+------
+- **Aug 2026.** [*When Average Calibration Fails*](/publication/2026-federated-conformal) was accepted for **oral presentation** at the [DeCaF Workshop](https://workshop-decaf.github.io/decaf-2026/), MICCAI 2026 (Strasbourg).
 - **Jul 2026.** [*Probabilistic Feature Imputation and Uncertainty-Aware Multimodal Federated Aggregation*](/publication/2026-pfin-fed-uq) was published in **PMLR** at [MIDL 2026](https://2026.midl.io/) (Taipei).
 - **Apr 2026.** [*LoRA-MME*](/publication/2026-lora-mme) was published by **ACM** at [NLBSE'26](https://nlbse2026.github.io/index.html) @ ICSE 2026, where it took **2nd place** with the highest F1 of any submission.
 - **Feb 2026.** [*The Stealth of Free Rider Attacks*](/publication/2026-free-rider-attacks) was accepted at [CCCN 2026](https://www.cccn.net/).
@@ -38,27 +40,21 @@ News
 - **2025.** Won **Champion of Champions** at Geeky Solutions Learnathon 3.0, and reached the **Top 10** at the Vivasoft AI Hackathon 2025.
 
 Research Highlights
-======
+------
 
-**[Federated Conformal Risk Control via Risk-Curve Shrinkage](/publication/2026-federated-conformal)** &middot; *[DeCaF](https://workshop-decaf.github.io/decaf-2026/) @ MICCAI 2026 (Oral Presentation), sole author*
-<br/>
-<img src="/images/paper_decaf.png" alt="Risk-curve shrinkage overview" style="width:100%;max-width:640px;border-radius:6px;margin:0.6em 0;" />
-<br/>Pooled federated calibration can look reliable on average while breaking its coverage guarantee at 40% of individual hospitals. Risk-curve shrinkage restores per-site reliability with a 97.6% reduction in prediction-set inflation.
+<div style="border:1px solid #e3e3e3;border-left:4px solid #2f7f9f;border-radius:6px;padding:1em 1.25em;margin-bottom:1.25em;">
+  <strong><a href="/publication/2026-federated-conformal">When Average Calibration Fails: Site-Conditional Federated Conformal Risk Control</a></strong> &middot; <em><a href="https://workshop-decaf.github.io/decaf-2026/">DeCaF</a> @ MICCAI 2026 (Oral Presentation), sole author</em>
+  <br/>Pooled federated calibration protects the average hospital while violating coverage at 40% of individual institutions. Risk-curve shrinkage adds one interpolation parameter to restore per-site reliability, sharing only per-site scalars.
+</div>
 
-**[Uncertainty-Aware Multimodal Federated Aggregation](/publication/2026-pfin-fed-uq)** &middot; *[MIDL 2026](https://2026.midl.io/) (PMLR), first author*
-<br/>
-<img src="/images/paper_midl.png" alt="P-FIN and Fed-UQ-Avg architecture" style="width:100%;max-width:640px;border-radius:6px;margin:0.6em 0;" />
-<br/>When most hospitals hold images but not text reports, P-FIN imputes the missing modality with calibrated uncertainty, then uses it to gate unreliable features and down-weight unreliable clients. AUC improves by +5.36% in the hardest setting.
+<div style="border:1px solid #e3e3e3;border-left:4px solid #2f7f9f;border-radius:6px;padding:1em 1.25em;margin-bottom:1.25em;">
+  <strong><a href="/publication/2026-pfin-fed-uq">Uncertainty-Aware Multimodal Federated Aggregation</a></strong> &middot; <em><a href="https://2026.midl.io/">MIDL 2026</a> (PMLR), first author</em>
+  <br/>When most hospitals hold images but not text reports, P-FIN imputes the missing modality with calibrated uncertainty, then uses it to gate unreliable features and down-weight unreliable clients. AUC improves by +5.36% in the hardest setting.
+</div>
 
-**[LoRA-MME: Multi-Model Ensemble for Code Comment Classification](/publication/2026-lora-mme)** &middot; *[NLBSE'26](https://nlbse2026.github.io/index.html) @ ICSE 2026, 2nd place*
-<br/>
-<img src="/images/paper_nlbse.png" alt="LoRA-MME ensemble architecture" style="width:100%;max-width:640px;border-radius:6px;margin:0.6em 0;" />
-<br/>Four code transformers, each LoRA-tuned so the whole ensemble fits one GPU, combined with learned per-category weights and per-(language, category) thresholds. Highest F1 of any submission (Weighted F1 0.7906, Macro F1 0.6867).
+<div style="border:1px solid #e3e3e3;border-left:4px solid #2f7f9f;border-radius:6px;padding:1em 1.25em;margin-bottom:1.25em;">
+  <strong><a href="/publication/2026-lora-mme">LoRA-MME: Multi-Model Ensemble for Code Comment Classification</a></strong> &middot; <em><a href="https://nlbse2026.github.io/index.html">NLBSE'26</a> @ ICSE 2026, 2nd place</em>
+  <br/>Four code transformers, each LoRA-tuned so the whole ensemble fits one GPU, combined with learned per-category weights and per-(language, category) thresholds. Highest F1 of any submission (Weighted F1 0.7906, Macro F1 0.6867).
+</div>
 
-Awards &amp; Honors
-======
-- **Champion of Champions**, Geeky Solutions Learnathon 3.0 (2025). Java Stack Champion and overall winner among 7 category champions, from 3,000+ applicants across 60+ universities.
-- **Top 10 Finalist**, Vivasoft AI Hackathon 2025. Youngest team to reach the finals among 500+ participants.
-- **Codeforces** competitive programming, peak rating 1244 (2023). [Profile](https://codeforces.com/profile/NafiShahid).
-
-See my full list of [awards](/awards/), [publications](/publications/), and [experience](/experience/).
+See my [distinctions](/awards/), [publications](/publications/), and [experience](/experience/).

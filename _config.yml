@@ -26,7 +26,7 @@ author:
   avatar           : "self_potrait.jpeg"
   name             : "Nafis Fuad Shahid"
   pronouns         : # example: "she/her"
-  bio              : "B.Sc. CSE @ IUT · Associate Software Engineer @ Brain Station 23. Researching trustworthy medical AI, uncertainty quantification, multimodal medical data, and reliable LLM systems."
+  bio              : "B.Sc. CSE @ IUT<br>Associate Software Engineer @ Brain Station 23<br>Researching trustworthy medical AI, uncertainty quantification, multimodal medical data, and reliable LLM systems."
   location         : "Dhaka, Bangladesh"
   employer         : "Brain Station 23"
   uri              : # URL
@@ -90,6 +90,8 @@ publication_category:
     title: 'Journal Articles'    
   conferences:
     title: 'Conference Papers'
+  working_papers:
+    title: 'Working Papers'
 
 # Site Settings
 teaser                   :  # filename of teaser fallback teaser image placed in /images/ for social media previews
