@@ -32,6 +32,7 @@ for low-resource medical data**.
 
 News
 ------
+- **Nov 2026.** Serving as a **reviewer** for [MIDL 2027](https://2027.midl.io/) (Porto).
 - **Aug 2026.** [*When Average Calibration Fails*](/publication/2026-federated-conformal) was accepted for **oral presentation** at the [DeCaF Workshop](https://workshop-decaf.github.io/decaf-2026/), MICCAI 2026 (Strasbourg).
 - **Jul 2026.** [*Probabilistic Feature Imputation and Uncertainty-Aware Multimodal Federated Aggregation*](/publication/2026-pfin-fed-uq) was published in **PMLR** at [MIDL 2026](https://2026.midl.io/) (Taipei).
 - **Apr 2026.** [*LoRA-MME*](/publication/2026-lora-mme) was published by **ACM** at [NLBSE'26](https://nlbse2026.github.io/index.html) @ ICSE 2026, where it took **2nd place** with the highest F1 of any submission.
@@ -56,5 +57,9 @@ Research Highlights
   <strong><a href="/publication/2026-lora-mme">LoRA-MME: Multi-Model Ensemble for Code Comment Classification</a></strong> &middot; <em><a href="https://nlbse2026.github.io/index.html">NLBSE'26</a> @ ICSE 2026, 2nd place</em>
   <br/>Four code transformers, each LoRA-tuned so the whole ensemble fits one GPU, combined with learned per-category weights and per-(language, category) thresholds. Highest F1 of any submission (Weighted F1 0.7906, Macro F1 0.6867).
 </div>
+
+Academic Service
+------
+- **Reviewer**, [Medical Imaging with Deep Learning (MIDL) 2027](https://2027.midl.io/)
 
 See my [distinctions](/awards/), [publications](/publications/), and [experience](/experience/).
