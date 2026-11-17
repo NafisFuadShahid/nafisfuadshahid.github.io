@@ -8,7 +8,7 @@ image: '/images/paper_midl.png'
 excerpt: '<b>First author.</b> When many hospitals hold only images and not text reports, a network (P-FIN) imputes the missing modality <i>with calibrated uncertainty</i>, then uses that uncertainty to gate unreliable features locally and to down-weight unreliable clients during federated aggregation. AUC improves by +5.36% in the hardest missing-modality setting.'
 date: 2026-07-01
 venue: 'Medical Imaging with Deep Learning (<a href="https://2026.midl.io/">MIDL 2026</a>), Taipei'
-paperurl: 'https://nafisfuadshahid.github.io/files/midl26.pdf'
+paperurl: '/files/midl26.pdf'
 citation: 'Nafis Fuad Shahid, Maroof Ahmed, Md Akib Haider, Saidur Rahman Sagor, Aashnan Rahman, and Md Azam Hossain. (2026). &quot;Probabilistic Feature Imputation and Uncertainty-Aware Multimodal Federated Aggregation.&quot; <i>Proceedings of Machine Learning Research (MIDL 2026)</i>, PMLR v315.'
 ---
 
@@ -29,4 +29,4 @@ This work makes the imputation express its own reliability, and then exploits th
 
 On federated chest X-ray classification (CheXpert, NIH Open-I, PadChest), the method consistently outperforms deterministic baselines across all client mixes, with a **+5.36% absolute AUC** gain in the most challenging 8:2 setting, where 80% of clients lack text.
 
-[PMLR](https://proceedings.mlr.press/v315/shahid26a.html) &middot; [arXiv:2604.12970](https://arxiv.org/abs/2604.12970) &middot; [Code](https://github.com/NafisFuadShahid/PFIN-UQAVG) &middot; [PDF](https://nafisfuadshahid.github.io/files/midl26.pdf)
+[PMLR](https://proceedings.mlr.press/v315/shahid26a.html) &middot; [arXiv:2604.12970](https://arxiv.org/abs/2604.12970) &middot; [Code](https://github.com/NafisFuadShahid/PFIN-UQAVG) &middot; [PDF](/files/midl26.pdf)

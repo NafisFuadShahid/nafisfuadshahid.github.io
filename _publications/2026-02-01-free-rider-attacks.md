@@ -7,7 +7,7 @@ status: "Accepted at"
 excerpt: 'A federated-learning client can train honestly at first to build credibility, then coast by submitting a running average of the global model. The updates stay statistically indistinguishable from honest ones under norm-based inspection, holding global accuracy within 1% of clean while saving roughly 70% of compute.'
 date: 2026-02-01
 venue: '<a href="https://www.cccn.net/">CCCN 2026</a>'
-paperurl: 'https://nafisfuadshahid.github.io/files/cccn2026.pdf'
+paperurl: '/files/cccn2026.pdf'
 citation: 'Nafis Fuad Shahid, et al. (2026). &quot;The Stealth of Free Rider Attacks: Assessing the Indistinguishability of Evasive Client Updates in Federated Learning.&quot; <i>CCCN 2026</i>.'
 ---
 
@@ -19,4 +19,4 @@ The strategy, **Running Average with Honest Initialization**, proceeds in two ph
 
 Across MNIST and CIFAR-10, under both IID and Non-IID splits with 100 clients, the attack keeps global accuracy **within 1% of the clean baseline at 30% attacker prevalence** while saving approximately **70% of the attacker's compute**, and it remains undetectable under norm-based inspection. A theoretical indistinguishability argument supports these findings. The implication is that defenses relying on update magnitude or simple statistical profiling are insufficient against patient, time-delayed evasion.
 
-[PDF](https://nafisfuadshahid.github.io/files/cccn2026.pdf)
+[PDF](/files/cccn2026.pdf)
