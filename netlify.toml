@@ -1,0 +1,9 @@
+# Netlify rebuilds and publishes the site on every push to main.
+# _config_docker.yml sets url: "" so links are relative and work on any domain.
+[build]
+  command = "bundle exec jekyll build --config _config.yml,_config_docker.yml"
+  publish = "_site"
+
+[build.environment]
+  RUBY_VERSION = "3.2"
+  JEKYLL_ENV = "production"
